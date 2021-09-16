@@ -1,0 +1,53 @@
+<!--
+Adapted from: Abhishek's PowerShell Blog - http://abhishek225.spaces.live.com/blog/
+ 
+Original post: http://abhishek225.spaces.live.com/blog/cns!13469C7B7CE6E911!165.entry
+-->
+<Types>
+    <Type>
+        <Name>System.__ComObject</Name>
+        <Members>
+            <ScriptMethod>
+                <Name>GetProperty</Name>
+                <Script>
+                    $type = $this.gettype();
+                    $type.invokeMember($args[0],[System.Reflection.BindingFlags]::GetProperty,$null,$this,$null)
+                </Script>
+            </ScriptMethod>
+            <ScriptMethod>
+                <Name>SetProperty</Name>
+                <Script>
+                    $type = $this.gettype();
+                    $type.invokeMember($args[0],[System.Reflection.BindingFlags]::SetProperty,$null,$this,@($args[1]))
+                </Script>
+            </ScriptMethod>
+            <ScriptMethod>
+                <Name>SetParamProperty</Name>
+                <Script>
+                    $type = $this.gettype();
+                    $index = $args.count -1 ;
+                    $methodargs=@($args[1..$index])
+                    $type.invokeMember($args[0],[System.Reflection.BindingFlags]::SetProperty,$null,$this,$methodargs)
+                </Script>
+            </ScriptMethod>
+            <ScriptMethod>
+                <Name>GetParamProperty</Name>
+                <Script>
+                    $type = $this.gettype();
+                    $index = $args.count -1 ;
+                    $methodargs=$args[1..$index]
+                    $type.invokeMember($args[0],[System.Reflection.BindingFlags]::GetProperty,$null,$this,$methodargs)
+                </Script>
+            </ScriptMethod>
+            <ScriptMethod>
+                <Name>InvokeMethod</Name>
+                <Script>
+                    $type = $this.gettype();
+                    $index = $args.count -1 ;
+                    $methodargs=@($args[1..$index])
+                    $type.invokeMember($args[0],[System.Reflection.BindingFlags]::InvokeMethod,$null,$this,$methodargs)
+                </Script>
+            </ScriptMethod>
+        </Members>
+    </Type>
+</Types>
